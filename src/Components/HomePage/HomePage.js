@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './HomePage.css';
 import Board from '../Board/Board';
-import CheckWinner from './CheckWinner';
 import Result from '../Result/Result';
+import checkWinner from './checkWinner';
 
 function HomePage() {
     const [winner, setWinner] = useState('');
@@ -26,7 +26,7 @@ function HomePage() {
                         </div>
 
                     )
-                        : <Board CheckWinner={CheckWinner} updateWinner={updateWinner} />
+                        : <Board checkWinner={checkWinner} updateWinner={updateWinner} />
                 }
             </div>
         </div>

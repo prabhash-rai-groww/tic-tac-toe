@@ -1,4 +1,4 @@
-function CheckWinner(currentBoard) {
+function checkWinner(currentBoard) {
     let winner = '';
 
     function setWinner(player) {
@@ -34,4 +34,4 @@ function CheckWinner(currentBoard) {
     return winner;
 }
 
-export default CheckWinner;
+export default checkWinner;

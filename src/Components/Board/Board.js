@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Board.css';
 
-function Board(props) {
+function Board({checkWinner, updateWinner}) {
     const [currentBoard, setCurrentBoard] = useState([
         ['', '', ''],
         ['', '', ''],
@@ -30,7 +30,7 @@ function Board(props) {
         setCurrentBoard(oldBoard);
 
         if (moves >= 4) {
-            setWinner(props.CheckWinner(currentBoard));
+            setWinner(checkWinner(currentBoard));
         }
     }
 
@@ -48,10 +48,10 @@ function Board(props) {
 
     useEffect(() => {
         if (winner !== '') {
-            props.updateWinner(winner);
+            updateWinner(winner);
             return;
         }
-    }, [winner, props]);
+    }, [winner]);
 
     return (
         <div className='Board'>
