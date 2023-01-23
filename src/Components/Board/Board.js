@@ -8,22 +8,22 @@ function Board() {
         ['', '', '']
     ]);
 
-    const [player, setPlayer] = useState(1);
+    let [moves, setMoves] = useState(1);
 
     function cellClicked(rowNo, colNo) {
-        console.log(rowNo, colNo)
         let oldBoard = [...currentBoard];
 
-        if (player === 1) {
+        if (moves % 2 === 1) {
             oldBoard[rowNo][colNo] = 'X';
-            setPlayer(2);
+            setMoves(moves+1);
         }
         else {
             oldBoard[rowNo][colNo] = 'O';
-            setPlayer(1);
+            setMoves(moves+1);
         }
 
         setCurrentBoard(oldBoard);
+        console.log(moves)
     }
 
     return (
