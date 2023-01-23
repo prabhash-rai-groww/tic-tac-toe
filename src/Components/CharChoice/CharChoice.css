@@ -1,0 +1,13 @@
+.CharChoice {
+    color: white;
+}
+
+.buttons {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-around;
+}
+
+.choose_button {
+    width: 5rem;
+}

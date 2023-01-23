@@ -11,3 +11,13 @@
     justify-content: center;
     align-items: center;
 }
+
+.reset {
+    margin-top: 2rem;
+}
+
+.button {
+    min-height: 2.5rem;
+    font-weight: bolder;
+    padding: 1rem 1rem;
+}

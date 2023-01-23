@@ -1,3 +1,12 @@
+.undo {
+    margin-bottom: 2rem;
+}
+
+.board_turn {
+    color: white;
+    margin-bottom: 2rem;
+}
+
 .Board {
     display: flex;
     flex-direction: column;
@@ -16,4 +25,5 @@
     justify-content: center;
     align-items: center;
     border: 0.2rem solid black;
+    background-color: white;
 }
