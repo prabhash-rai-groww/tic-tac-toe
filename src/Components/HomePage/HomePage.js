@@ -11,12 +11,22 @@ function HomePage() {
         setWinner(player);
     }
 
+    function resetGame() {
+        setWinner('');
+    }
+
     return (
         <div className='homepage'>
             <div>
                 {
-                    winner !== '' ? <Result winner={winner} />
-                        : <Board CheckWinner={CheckWinner} updateWinner={updateWinner} />
+                    winner !== '' ? (
+                        <div>
+                            <Result winner={winner} />
+                            <button onClick={() => {resetGame()}}>Reset Game</button>
+                        </div>
+
+                    )
+                    : <Board CheckWinner={CheckWinner} updateWinner={updateWinner} />
                 }
             </div>
 
