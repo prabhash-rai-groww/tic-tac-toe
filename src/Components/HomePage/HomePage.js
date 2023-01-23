@@ -30,7 +30,9 @@ function HomePage() {
                 }
             </div>
 
-            <button onClick={() => { resetingGame() }}>Reset Game</button>
+            <div className='reset'>
+            <button className='button' onClick={() => { resetingGame() }}>Reset Game</button>
+            </div>
         </div>
     )
 }

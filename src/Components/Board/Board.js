@@ -11,11 +11,12 @@ function Board({ checkWinner, updateWinner, resetGame, setResetGame }) {
 
     const [currentBoard, setCurrentBoard] = useState(newboard);
     const [winner, setWinner] = useState('');
+    const [lastClicked, setLastClicked] = useState([]);
 
     let [moves, setMoves] = useState(1);
 
     function cellClicked(rowNo, colNo) {
-
+        setLastClicked([rowNo, colNo]);
         let oldBoard = [...currentBoard];
 
         if (oldBoard[rowNo][colNo] !== '') return;
@@ -36,10 +37,22 @@ function Board({ checkWinner, updateWinner, resetGame, setResetGame }) {
         }
     }
 
+    function undoLast() {
+        if (lastClicked.length === 0) return;
+
+
+        let oldBoard = [...currentBoard];
+        oldBoard[lastClicked[0]][lastClicked[1]] = '';
+
+        setLastClicked([]);
+        setCurrentBoard(oldBoard);
+    }
+
     useEffect(() => {
         if (resetGame) {
             setCurrentBoard(newboard);
             setResetGame(false);
+            setLastClicked([]);
         }
 
         if (winner !== '') {
@@ -50,6 +63,11 @@ function Board({ checkWinner, updateWinner, resetGame, setResetGame }) {
 
     return (
         <div className='Board'>
+            <div className='undo'>
+                {
+                    moves > 1 && lastClicked.length ? <button className='button' onClick={undoLast}>Undo</button> : <div />
+                }
+            </div>
             <table>
                 <tbody>
                     {
