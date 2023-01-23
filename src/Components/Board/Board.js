@@ -70,11 +70,11 @@ function Board() {
                     {
                         currentBoard.map(
                             function (rowElement, rowNo) {
-                                return <tr id='{rowNo}' className='board_row'>
+                                return <tr key={rowNo} className='board_row'>
                                     {
                                         rowElement.map(
                                             function (cellElement, colNo) {
-                                                return <td id='{colNo}' className='board_cell' onClick={() => cellClicked(rowNo, colNo)}>{cellElement}</td>;
+                                                return <td key={colNo} className='board_cell' onClick={() => cellClicked(rowNo, colNo)}>{cellElement}</td>;
                                             }
                                         )
                                     }
