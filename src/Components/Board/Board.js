@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './Board.css';
 
-function Board({checkWinner, updateWinner}) {
-    const [currentBoard, setCurrentBoard] = useState([
+function Board({ checkWinner, updateWinner, resetGame, setResetGame }) {
+
+    const newboard = [
         ['', '', ''],
         ['', '', ''],
         ['', '', '']
-    ]);
-    const [winner, setWinner] = useState('');
+    ];
 
+    const [currentBoard, setCurrentBoard] = useState(newboard);
+    const [winner, setWinner] = useState('');
 
     let [moves, setMoves] = useState(1);
 
@@ -34,24 +36,17 @@ function Board({checkWinner, updateWinner}) {
         }
     }
 
-    function resetGame() {
-        setWinner('');
-
-        const board =
-            [['', '', ''],
-            ['', '', ''],
-            ['', '', '']]
-
-        setCurrentBoard(board);
-
-    }
-
     useEffect(() => {
+        if (resetGame) {
+            setCurrentBoard(newboard);
+            setResetGame(false);
+        }
+
         if (winner !== '') {
             updateWinner(winner);
             return;
         }
-    }, [winner]);
+    }, [winner, resetGame]);
 
     return (
         <div className='Board'>
@@ -75,8 +70,6 @@ function Board({checkWinner, updateWinner}) {
                     }
                 </tbody>
             </table>
-
-            <button onClick={() => { resetGame() }}>Reset Game</button>
         </div>
     )
 }

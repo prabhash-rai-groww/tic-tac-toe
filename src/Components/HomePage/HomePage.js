@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
-import './HomePage.css';
 import Board from '../Board/Board';
 import Result from '../Result/Result';
 import checkWinner from './checkWinner';
+import './HomePage.css';
 
 function HomePage() {
     const [winner, setWinner] = useState('');
+    const [resetGame, setResetGame] = useState(false);
 
     function updateWinner(player) {
         setWinner(player);
     }
 
-    function resetGame() {
-        setWinner('');
+    function resetingGame() {
+        setResetGame(true);
+        updateWinner('');
     }
 
     return (
@@ -22,13 +24,13 @@ function HomePage() {
                     winner !== '' ? (
                         <div className='Homepage_result'>
                             <Result winner={winner} />
-                            <button onClick={() => { resetGame() }}>Reset Game</button>
                         </div>
-
                     )
-                        : <Board checkWinner={checkWinner} updateWinner={updateWinner} />
+                        : <Board checkWinner={checkWinner} updateWinner={updateWinner} resetGame={resetGame} setResetGame={setResetGame}/>
                 }
             </div>
+
+            <button onClick={() => { resetingGame() }}>Reset Game</button>
         </div>
     )
 }
