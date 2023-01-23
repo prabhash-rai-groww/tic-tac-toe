@@ -13,6 +13,7 @@ function Board({ checkWinner, updateWinner, resetGame, setResetGame, selectedCha
     const [winner, setWinner] = useState('');
     const [lastClicked, setLastClicked] = useState([]);
     const [playerTwoChar, setPlayerTwoChar] = useState('');
+    const [currentPlayer, setCurrentPlayer] = useState('Player 1');
     let [moves, setMoves] = useState(0);
 
     useEffect(() => {
@@ -33,10 +34,12 @@ function Board({ checkWinner, updateWinner, resetGame, setResetGame, selectedCha
         if (moves % 2 === 1) {
             oldBoard[rowNo][colNo] = playerTwoChar;
             setMoves(moves + 1);
+            setCurrentPlayer("Player 1");
         }
         else {
             oldBoard[rowNo][colNo] = selectedChar;
             setMoves(moves + 1);
+            setCurrentPlayer("Player 2");
         }
 
         setCurrentBoard(oldBoard);
@@ -48,10 +51,17 @@ function Board({ checkWinner, updateWinner, resetGame, setResetGame, selectedCha
     
     function undoLast() {
         if (lastClicked.length === 0) return;
-        
+
+        if (moves % 2 === 1) {
+            setCurrentPlayer("Player 1");
+        }
+        else {
+            setCurrentPlayer("Player 2");
+        }
+
         let oldBoard = [...currentBoard];
         oldBoard[lastClicked[0]][lastClicked[1]] = '';
-        
+
         setMoves(moves - 1);
         setLastClicked([]);
         setCurrentBoard(oldBoard);
@@ -77,9 +87,10 @@ function Board({ checkWinner, updateWinner, resetGame, setResetGame, selectedCha
 
     return (
         <div className='Board'>
+            <div className='board_turn'>{currentPlayer} turn</div>
             <div className='undo'>
                 {
-                    moves > 1 && lastClicked.length ? <button className='button' onClick={undoLast}>Undo</button> : <div />
+                    moves > 0 && lastClicked.length ? <button className='button' onClick={undoLast}>Undo</button> : <div />
                 }
             </div>
             <table>
@@ -96,7 +107,6 @@ function Board({ checkWinner, updateWinner, resetGame, setResetGame, selectedCha
                                         )
                                     }
                                 </tr>
-
                             }
                         )
                     }
