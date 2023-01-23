@@ -1,12 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './HomePage.css';
 import Board from '../Board/Board';
 
 function HomePage() {
-    const [winner, setWinner] = useState(0);
-    function checkWinner() {
-        setWinner(1);
-    }
 
     return (
         <div className='homepage'>
