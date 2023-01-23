@@ -20,16 +20,15 @@ function HomePage() {
             <div>
                 {
                     winner !== '' ? (
-                        <div>
+                        <div className='Homepage_result'>
                             <Result winner={winner} />
-                            <button onClick={() => {resetGame()}}>Reset Game</button>
+                            <button onClick={() => { resetGame() }}>Reset Game</button>
                         </div>
 
                     )
-                    : <Board CheckWinner={CheckWinner} updateWinner={updateWinner} />
+                        : <Board CheckWinner={CheckWinner} updateWinner={updateWinner} />
                 }
             </div>
-
         </div>
     )
 }

@@ -9,6 +9,7 @@ function Board(props) {
     ]);
     const [winner, setWinner] = useState('');
 
+
     let [moves, setMoves] = useState(1);
 
     function cellClicked(rowNo, colNo) {
@@ -31,6 +32,18 @@ function Board(props) {
         if (moves >= 4) {
             setWinner(props.CheckWinner(currentBoard));
         }
+    }
+
+    function resetGame() {
+        setWinner('');
+
+        const board =
+            [['', '', ''],
+            ['', '', ''],
+            ['', '', '']]
+
+        setCurrentBoard(board);
+
     }
 
     useEffect(() => {
@@ -62,6 +75,8 @@ function Board(props) {
                     }
                 </tbody>
             </table>
+
+            <button onClick={() => { resetGame() }}>Reset Game</button>
         </div>
     )
 }
