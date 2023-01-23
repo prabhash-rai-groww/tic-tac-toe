@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Board.css';
 
 function Board(props) {
@@ -12,7 +12,6 @@ function Board(props) {
     let [moves, setMoves] = useState(1);
 
     function cellClicked(rowNo, colNo) {
-        if (winner !== '') return;
 
         let oldBoard = [...currentBoard];
 
@@ -20,11 +19,11 @@ function Board(props) {
 
         if (moves % 2 === 1) {
             oldBoard[rowNo][colNo] = 'X';
-            setMoves(moves+1);
+            setMoves(moves + 1);
         }
         else {
             oldBoard[rowNo][colNo] = 'O';
-            setMoves(moves+1);
+            setMoves(moves + 1);
         }
 
         setCurrentBoard(oldBoard);
@@ -33,6 +32,13 @@ function Board(props) {
             setWinner(props.CheckWinner(currentBoard));
         }
     }
+
+    useEffect(() => {
+        if (winner !== '') {
+            props.updateWinner(winner);
+            return;
+        }
+    }, [winner, props]);
 
     return (
         <div className='Board'>
