@@ -1,0 +1,12 @@
+.board_row {
+    display: flex;
+}
+
+.board_cell {
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.2rem solid black;
+}
