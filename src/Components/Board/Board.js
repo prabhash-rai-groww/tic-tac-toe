@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Board.css';
 
-function Board({ checkWinner, updateWinner, resetGame, setResetGame }) {
+function Board({ checkWinner, updateWinner, resetGame, setResetGame, selectedChar, updateMoves }) {
 
     const newboard = [
         ['', '', ''],
@@ -12,8 +12,17 @@ function Board({ checkWinner, updateWinner, resetGame, setResetGame }) {
     const [currentBoard, setCurrentBoard] = useState(newboard);
     const [winner, setWinner] = useState('');
     const [lastClicked, setLastClicked] = useState([]);
+    const [playerTwoChar, setPlayerTwoChar] = useState('');
+    let [moves, setMoves] = useState(0);
 
-    let [moves, setMoves] = useState(1);
+    useEffect(() => {
+        if (selectedChar === 'X') {
+            setPlayerTwoChar('O');
+        }
+        else {
+            setPlayerTwoChar('X');
+        }
+    }, []);
 
     function cellClicked(rowNo, colNo) {
         setLastClicked([rowNo, colNo]);
@@ -22,11 +31,11 @@ function Board({ checkWinner, updateWinner, resetGame, setResetGame }) {
         if (oldBoard[rowNo][colNo] !== '') return;
 
         if (moves % 2 === 1) {
-            oldBoard[rowNo][colNo] = 'X';
+            oldBoard[rowNo][colNo] = playerTwoChar;
             setMoves(moves + 1);
         }
         else {
-            oldBoard[rowNo][colNo] = 'O';
+            oldBoard[rowNo][colNo] = selectedChar;
             setMoves(moves + 1);
         }
 
@@ -36,23 +45,28 @@ function Board({ checkWinner, updateWinner, resetGame, setResetGame }) {
             setWinner(checkWinner(currentBoard));
         }
     }
-
+    
     function undoLast() {
         if (lastClicked.length === 0) return;
-
-
+        
         let oldBoard = [...currentBoard];
         oldBoard[lastClicked[0]][lastClicked[1]] = '';
-
+        
+        setMoves(moves - 1);
         setLastClicked([]);
         setCurrentBoard(oldBoard);
     }
+
+    useEffect(() => {
+        updateMoves(moves);
+    }, [moves])
 
     useEffect(() => {
         if (resetGame) {
             setCurrentBoard(newboard);
             setResetGame(false);
             setLastClicked([]);
+            setMoves(0);
         }
 
         if (winner !== '') {
